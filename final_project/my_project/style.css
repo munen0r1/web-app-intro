@@ -1,61 +1,206 @@
+/* 全体的なスタイル */
 body {
     font-family: sans-serif;
-    margin: 20px;
     background-color: #f4f4f4;
-    color: #333;
-}
-
-h1,
-h2 {
-    color: #0056b3;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    background-color: #fff;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-form {
-    background-color: #fff;
+    margin: 0;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+/* アプリ全体を囲むボックスのスタイル */
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+/* 見出しのスタイル */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* ボタンを囲むdivのスタイル */
+.buttons {
+    margin-bottom: 20px;
+}
+
+.plus-group, .minus-group {
+    display: inline-block;
+}
+
+.plus {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.plus:hover {
+    background-color: #0056b3;
+}
+
+.minus {
+    background-color: #e53935;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.minus:hover {
+    background-color: #b71c1c;
+}
+
+/* +/−モード選択ボタン */
+.mode-select {
+    margin-bottom: 10px;
+}
+
+.mode {
+    background-color: #eee;
+    color: #333;
+    border: none;
+    padding: 8px 20px;
+    margin: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.2s;
+}
+
+.mode.active {
+    background-color: #24d055;
+    color: #fff;
+}
+
+.input-area {
+    margin-bottom: 15px;
+}
+
+#numberInput {
+    width: 120px;
+    padding: 8px;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-align: right;
+    margin-right: 8px;
+    background-color: #f9f9f9;
+}
+
+#numberInput:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+#setButton {
+    background-color: #979797;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+#setButton:hover {
+    background-color: #595959;
+}
+
+/* テンキー全体のスタイル */
+.keypad {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.key-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.key {
+    width: 50px;
+    height: 50px;
+    margin: 3px;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    border: none;
+    background-color: #ddd;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-block;
+}
+
+.key:hover {
+    background-color: #bbb;
+}
+
+/* 「C」ボタンを右端に独立配置 */
+.key-spacer {
+    flex: 1;
+}
+
+#keyClear {
+    background-color: #e53935;
+    color: #fff;
+    margin-left: 10px;
+}
+
+#keyClear:hover {
+    background-color: #b71c1c;
+}
+
+/* 結果表示エリアのスタイル */
+.result-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-top: 20px;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
+#result {
+    font-size: 1.2rem;
     font-weight: bold;
-}
-
-input[type="text"] {
-    width: calc(100% - 22px);
-    /* padding と border を考慮 */
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
+    color: #333;
+    min-height: 1.2em;
+    background-color: #e9e9e9;
+    padding: 16px 24px;
     border-radius: 4px;
+    margin-bottom: 8px;
 }
 
-button {
-    background-color: #0056b3;
-    color: white;
-    padding: 10px 15px;
+.reset-btn {
+    background-color: #ff9800;
+    color: #fff;
     border: none;
+    padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 1rem;
+    transition: background-color 0.2s;
 }
 
-button:hover {
-    background-color: #004494;
+.reset-btn:hover {
+    background-color: #e65100;
 }
