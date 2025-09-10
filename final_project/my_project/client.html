@@ -2,65 +2,57 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>簡単計算アプリ</title>
+    <title>計算アプリ</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>簡単計算アプリ</h1>
-
+        <h1>計算アプリ</h1>
+        <div class="result-area">
+            <div id="result"></div>
+            <button id="resetResult" class="reset-btn">リセット</button>
+        </div>
         <div class="buttons">
             <div class="plus-group">
                 <button id="addButton" class="plus">+100</button>
                 <button id="add300Button" class="plus">+300</button>
                 <button id="add500Button" class="plus">+500</button>
             </div>
-            <br>
             <div class="minus-group">
                 <button id="subtractButton" class="minus">-100</button>
                 <button id="subtract300Button" class="minus">-300</button>
                 <button id="subtract500Button" class="minus">-500</button>
             </div>
         </div>
-
-        <div class="mode-select">
-            <button id="modePlus" class="mode active">＋</button>
-            <button id="modeMinus" class="mode">－</button>
-        </div>
-
         <div class="input-area">
-            <input type="text" id="numberInput" placeholder="例: 50" readonly>
+            <input type="text" id="numberInput" readonly>
             <button id="setButton">決定</button>
         </div>
-
         <div class="keypad">
             <div class="key-row">
-                <button class="key">7</button>
-                <button class="key">8</button>
-                <button class="key">9</button>
+                <button class="key" id="key7">7</button>
+                <button class="key" id="key8">8</button>
+                <button class="key" id="key9">9</button>
+                <button class="key delete" id="keyDelete">⌫</button>
             </div>
             <div class="key-row">
-                <button class="key">4</button>
-                <button class="key">5</button>
-                <button class="key">6</button>
+                <button class="key" id="key4">4</button>
+                <button class="key" id="key5">5</button>
+                <button class="key" id="key6">6</button>
+                <button class="key" id="keyClear">C</button>
             </div>
             <div class="key-row">
-                <button class="key">1</button>
-            <button class="key">2</button>
-            <button class="key">3</button>
+                <button class="key" id="key1">1</button>
+                <button class="key" id="key2">2</button>
+                <button class="key" id="key3">3</button>
+                <button class="key op" id="keyPlus">＋</button>
             </div>
-        <div class="key-row">
-            <button class="key">0</button>
-            <span class="key-spacer"></span>
-            <button class="key" id="keyClear">C</button>
-        </div>
-    </div>
-
-        <div class="result-area">
-            <p id="result">結果:0</p>
-            <br>
-            <button id="resetResult" class="reset-btn">リセット</button>
+            <div class="key-row">
+                <button class="key" id="key0">0</button>
+                <button class="key" id="key00">00</button>
+                <div class="key empty"></div>
+                <button class="key op" id="keyMinus">－</button>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>

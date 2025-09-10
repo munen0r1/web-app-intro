@@ -1,54 +1,77 @@
 let currentValue = 0;
 let inputValue = '';
-let mode = 'plus'; // 'plus' or 'minus'
+let currentOp = ''; // '', 'plus', 'minus'
 
 const result = document.getElementById('result');
 const numberInput = document.getElementById('numberInput');
 const setButton = document.getElementById('setButton');
-const modePlus = document.getElementById('modePlus');
-const modeMinus = document.getElementById('modeMinus');
+
+// 入力欄の表示を更新
+function updateInputDisplay() {
+    // currentOpが空なら記号を表示しない
+    let opStr = '';
+    if (currentOp === 'plus') opStr = '＋';
+    if (currentOp === 'minus') opStr = '－';
+    numberInput.value = opStr + (inputValue || '');
+}
 
 // 結果表示更新
 function updateResult() {
     result.textContent = `結果:${currentValue}`;
 }
 
-// モード切替
-modePlus.addEventListener('click', () => {
-    mode = 'plus';
-    modePlus.classList.add('active');
-    modeMinus.classList.remove('active');
-});
-modeMinus.addEventListener('click', () => {
-    mode = 'minus';
-    modeMinus.classList.add('active');
-    modePlus.classList.remove('active');
-});
-
 // テンキー入力
 document.querySelectorAll('.key').forEach(btn => {
     btn.addEventListener('click', () => {
         if (btn.id === 'keyClear') {
             inputValue = '';
-        } else {
+            currentOp = ''; // デフォルトは空白
+            updateInputDisplay();
+        } else if (btn.id === 'keyPlus') {
+            currentOp = 'plus';
+            updateInputDisplay();
+        } else if (btn.id === 'keyMinus') {
+            currentOp = 'minus';
+            updateInputDisplay();
+        } else if (btn.id === 'key00') {
+            if (inputValue.length > 0) {
+                inputValue += '00';
+                updateInputDisplay();
+            }
+        } else if (btn.id === 'keyDelete') {
+            if (inputValue.length > 0) {
+                inputValue = inputValue.slice(0, -1);
+                updateInputDisplay();
+            } else {
+                // 入力が空のときは＋－も消す
+                currentOp = '';
+                updateInputDisplay();
+            }
+        } else if (
+            btn.classList.contains('key') &&
+            !btn.classList.contains('op') &&
+            btn.id !== 'keyClear' &&
+            btn.id !== 'keyDelete'
+        ) {
             inputValue += btn.textContent;
+            updateInputDisplay();
         }
-        numberInput.value = inputValue;
     });
 });
 
 // 決定ボタン
 setButton.addEventListener('click', () => {
-    const num = Number(numberInput.value);
-    if (!isNaN(num) && num !== 0) {
-        if (mode === 'plus') {
+    const num = Number(inputValue);
+    if (!isNaN(num) && num !== 0 && currentOp) {
+        if (currentOp === 'plus') {
             currentValue += num;
-        } else {
+        } else if (currentOp === 'minus') {
             currentValue -= num;
         }
         updateResult();
         inputValue = '';
-        numberInput.value = '';
+        currentOp = ''; // デフォルトは空白
+        updateInputDisplay();
     }
 });
 
@@ -68,3 +91,4 @@ document.getElementById('resetResult').onclick = () => {
 
 // 初期表示
 updateResult();
+updateInputDisplay();
