@@ -6,18 +6,28 @@ const result = document.getElementById('result');
 const numberInput = document.getElementById('numberInput');
 const setButton = document.getElementById('setButton');
 
+// 3桁ごとにカンマを入れる関数
+function formatNumberWithComma(numStr) {
+    if (!numStr) return '';
+    let n = Number(numStr.replace(/,/g, ''));
+    if (isNaN(n)) return '';
+    return n.toLocaleString();
+}
+
 // 入力欄の表示を更新
 function updateInputDisplay() {
-    // currentOpが空なら記号を表示しない
     let opStr = '';
     if (currentOp === 'plus') opStr = '＋';
     if (currentOp === 'minus') opStr = '－';
-    numberInput.value = opStr + (inputValue || '');
+    numberInput.value = opStr + formatNumberWithComma(inputValue);
 }
 
-// 結果表示更新
+// 結果表示更新（ラベル左寄せ、数字右寄せ、グレー背景固定）
 function updateResult() {
-    result.textContent = `結果:${currentValue}`;
+    result.innerHTML = `
+        <span class="result-label">結果：</span>
+        <span class="result-value">${currentValue.toLocaleString()}</span>
+    `;
 }
 
 // テンキー入力
@@ -25,7 +35,7 @@ document.querySelectorAll('.key').forEach(btn => {
     btn.addEventListener('click', () => {
         if (btn.id === 'keyClear') {
             inputValue = '';
-            currentOp = ''; // デフォルトは空白
+            currentOp = '';
             updateInputDisplay();
         } else if (btn.id === 'keyPlus') {
             currentOp = 'plus';
@@ -43,7 +53,6 @@ document.querySelectorAll('.key').forEach(btn => {
                 inputValue = inputValue.slice(0, -1);
                 updateInputDisplay();
             } else {
-                // 入力が空のときは＋－も消す
                 currentOp = '';
                 updateInputDisplay();
             }
@@ -59,9 +68,22 @@ document.querySelectorAll('.key').forEach(btn => {
     });
 });
 
+// ×2ボタン
+document.getElementById('doubleButton').onclick = () => {
+    // op記号を除いた数値部分のみ2倍
+    if (inputValue) {
+        let num = Number(inputValue.replace(/,/g, ''));
+        if (!isNaN(num)) {
+            num *= 2;
+            inputValue = String(num);
+            updateInputDisplay();
+        }
+    }
+};
+
 // 決定ボタン
 setButton.addEventListener('click', () => {
-    const num = Number(inputValue);
+    const num = Number(inputValue.replace(/,/g, ''));
     if (!isNaN(num) && num !== 0 && currentOp) {
         if (currentOp === 'plus') {
             currentValue += num;
@@ -70,7 +92,7 @@ setButton.addEventListener('click', () => {
         }
         updateResult();
         inputValue = '';
-        currentOp = ''; // デフォルトは空白
+        currentOp = '';
         updateInputDisplay();
     }
 });
